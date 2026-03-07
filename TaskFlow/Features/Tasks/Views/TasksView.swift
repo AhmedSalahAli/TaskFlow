@@ -6,24 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TasksView: View {
-    
-    @StateObject var viewModel = TasksViewModel()
-    
+
+    @Environment(\.modelContext) private var context
+    @StateObject private var viewModel = TasksViewModel()
+
     var body: some View {
-        
+
         NavigationStack {
-            
+
             List(viewModel.tasks) { task in
                 Text(task.title)
             }
-            
+
             .navigationTitle("TaskFlow")
             .task {
-                await viewModel.loadTasks()
+                await viewModel.loadTasks(context: context)
             }
-            
+
         }
+
     }
 }

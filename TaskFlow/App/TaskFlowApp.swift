@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct TaskFlowApp: App {
@@ -13,5 +14,6 @@ struct TaskFlowApp: App {
         WindowGroup {
             TasksView()
         }
+        .modelContainer(for: TaskEntity.self)
     }
 }
