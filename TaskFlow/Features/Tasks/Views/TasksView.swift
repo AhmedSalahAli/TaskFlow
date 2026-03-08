@@ -11,7 +11,19 @@ import SwiftData
 struct TasksView: View {
 
     @Environment(\.modelContext) private var context
-    @StateObject private var viewModel = TasksViewModel()
+    @StateObject private var viewModel: TasksViewModel
+
+    init(context: ModelContext) {
+
+        let container = AppContainer(context: context)
+
+        _viewModel = StateObject(
+            wrappedValue: TasksViewModel(
+                fetchTasksUseCase: container.fetchTasksUseCase
+            )
+        )
+
+    }
 
     var body: some View {
 
@@ -23,10 +35,11 @@ struct TasksView: View {
 
             .navigationTitle("TaskFlow")
             .task {
-                await viewModel.loadTasks(context: context)
+                await viewModel.loadTasks()
             }
 
         }
 
     }
+
 }

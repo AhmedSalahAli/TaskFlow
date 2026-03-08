@@ -7,21 +7,22 @@
 
 import Foundation
 import Combine
-import SwiftData
-
 
 @MainActor
 class TasksViewModel: ObservableObject {
 
     @Published var tasks: [Task] = []
 
-    func loadTasks(context: ModelContext) async {
+    private let fetchTasksUseCase: FetchTasksUseCase
 
-        let repository = RemoteTaskRepository(context: context)
-        let useCase = FetchTasksUseCase(repository: repository)
+    init(fetchTasksUseCase: FetchTasksUseCase) {
+        self.fetchTasksUseCase = fetchTasksUseCase
+    }
+
+    func loadTasks() async {
 
         do {
-            tasks = try await useCase.execute()
+            tasks = try await fetchTasksUseCase.execute()
         } catch {
             print(error)
         }

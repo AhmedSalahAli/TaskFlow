@@ -10,10 +10,16 @@ import SwiftData
 
 @main
 struct TaskFlowApp: App {
+
     var body: some Scene {
+
         WindowGroup {
-            TasksView()
+
+            ContentView()
+
         }
         .modelContainer(for: TaskEntity.self)
+
     }
+
 }
