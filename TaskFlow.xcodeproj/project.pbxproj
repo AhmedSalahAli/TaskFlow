@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7E990DDF2F5F68FC00615344 /* TasksFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7E990DDE2F5F68FC00615344 /* TasksFeature */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		7EC811012F5C7E6300477D54 /* TaskFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,16 +40,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E990DDF2F5F68FC00615344 /* TasksFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E990DDD2F5F68D500615344 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7EC810F82F5C7E6300477D54 = {
 			isa = PBXGroup;
 			children = (
 				7EC811032F5C7E6300477D54 /* TaskFlow */,
+				7E990DDD2F5F68D500615344 /* Frameworks */,
 				7EC811022F5C7E6300477D54 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,6 +91,7 @@
 			);
 			name = TaskFlow;
 			packageProductDependencies = (
+				7E990DDE2F5F68FC00615344 /* TasksFeature */,
 			);
 			productName = TaskFlow;
 			productReference = 7EC811012F5C7E6300477D54 /* TaskFlow.app */;
@@ -370,6 +384,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7E990DDE2F5F68FC00615344 /* TasksFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TasksFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7EC810F92F5C7E6300477D54 /* Project object */;
 }

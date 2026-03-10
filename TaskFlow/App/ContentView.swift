@@ -7,13 +7,20 @@
 
 import SwiftUI
 import SwiftData
+import TasksFeature
 
 struct ContentView: View {
 
     @Environment(\.modelContext) private var context
 
     var body: some View {
-        TasksView(context: context)
-    }
 
+        let container = AppContainer(context: context)
+
+        TasksView(
+            viewModel: TasksViewModel(
+                fetchTasksUseCase: container.fetchTasksUseCase
+            )
+        )
+    }
 }

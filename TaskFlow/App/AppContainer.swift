@@ -5,6 +5,7 @@
 //  Created by Ahmed Salah on 08/03/2026.
 //
 
+import TasksFeature
 import SwiftData
 
 final class AppContainer {
@@ -16,11 +17,10 @@ final class AppContainer {
     }
 
     lazy var taskRepository: TaskRepository = {
-        RemoteTaskRepository(context: context)
+        RemoteTaskRepository()
     }()
 
     lazy var fetchTasksUseCase = FetchTasksUseCase(
         repository: taskRepository
     )
-
 }
