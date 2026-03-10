@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E990DDF2F5F68FC00615344 /* TasksFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7E990DDE2F5F68FC00615344 /* TasksFeature */; };
+		7EB4DF972F60D90D008F53B9 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 7EB4DF962F60D90D008F53B9 /* Networking */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB4DF972F60D90D008F53B9 /* Networking in Frameworks */,
 				7E990DDF2F5F68FC00615344 /* TasksFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +94,7 @@
 			name = TaskFlow;
 			packageProductDependencies = (
 				7E990DDE2F5F68FC00615344 /* TasksFeature */,
+				7EB4DF962F60D90D008F53B9 /* Networking */,
 			);
 			productName = TaskFlow;
 			productReference = 7EC811012F5C7E6300477D54 /* TaskFlow.app */;
@@ -389,6 +392,10 @@
 		7E990DDE2F5F68FC00615344 /* TasksFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TasksFeature;
+		};
+		7EB4DF962F60D90D008F53B9 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

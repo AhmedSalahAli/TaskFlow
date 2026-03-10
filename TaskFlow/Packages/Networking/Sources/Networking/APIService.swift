@@ -6,15 +6,19 @@
 //
 
 import Foundation
+import TasksFeature
 
-public final class APIService {
+public final class APIService: NetworkService {
 
     private let client = NetworkClient.shared
 
     public init() {}
 
-    public func request<T: Decodable & Sendable>(url: URL) async throws -> T {
-        try await client.request(url: url)
-    }
+    public func request<T: Decodable & Sendable>(
+        url: URL
+    ) async throws -> T {
 
+        try await client.request(url: url)
+
+    }
 }

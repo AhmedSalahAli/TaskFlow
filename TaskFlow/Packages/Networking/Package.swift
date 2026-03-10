@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Networking",
-
+    
     platforms: [
         .iOS(.v17)
     ],
@@ -17,9 +17,14 @@ let package = Package(
         )
     ],
 
+    dependencies: [
+        .package(path: "../TasksFeature")
+    ],
+
     targets: [
         .target(
-            name: "Networking"
+            name: "Networking",
+            dependencies: ["TasksFeature"]
         )
     ]
 )

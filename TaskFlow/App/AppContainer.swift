@@ -6,7 +6,9 @@
 //
 
 import TasksFeature
+import Networking
 import SwiftData
+
 
 final class AppContainer {
 
@@ -17,7 +19,9 @@ final class AppContainer {
     }
 
     lazy var taskRepository: TaskRepository = {
-        RemoteTaskRepository()
+        RemoteTaskRepository(
+            network: APIService()
+        )
     }()
 
     lazy var fetchTasksUseCase = FetchTasksUseCase(
