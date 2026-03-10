@@ -12,16 +12,10 @@ import SwiftData
 
 final class AppContainer {
 
-    private let context: ModelContext
-
-    init(context: ModelContext) {
-        self.context = context
-    }
+    let apiService = APIService()
 
     lazy var taskRepository: TaskRepository = {
-        RemoteTaskRepository(
-            network: APIService()
-        )
+        RemoteTaskRepository(network: apiService)
     }()
 
     lazy var fetchTasksUseCase = FetchTasksUseCase(

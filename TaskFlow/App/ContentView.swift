@@ -11,11 +11,9 @@ import TasksFeature
 
 struct ContentView: View {
 
-    @Environment(\.modelContext) private var context
+    let container = AppContainer()
 
     var body: some View {
-
-        let container = AppContainer(context: context)
 
         TasksView(
             viewModel: TasksViewModel(
