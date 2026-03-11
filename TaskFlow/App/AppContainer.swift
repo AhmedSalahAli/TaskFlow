@@ -9,13 +9,24 @@ import TasksFeature
 import Networking
 import SwiftData
 
-
 final class AppContainer {
 
-    let apiService = APIService()
+    private let context: ModelContext
+
+    init(context: ModelContext) {
+        self.context = context
+    }
 
     lazy var taskRepository: TaskRepository = {
-        RemoteTaskRepository(network: apiService)
+
+        let remote = TaskRemoteDataSource(
+            network: APIService()
+        )
+
+        return RemoteTaskRepository(
+            remote: remote
+        )
+
     }()
 
     lazy var fetchTasksUseCase = FetchTasksUseCase(

@@ -9,13 +9,13 @@ import Foundation
 import SwiftData
 
 @Model
-class TaskEntity {
+public class TaskEntity {
 
-    var id: Int
-    var title: String
-    var completed: Bool
+    public var id: Int
+    public var title: String
+    public var completed: Bool
 
-    init(id: Int, title: String, completed: Bool) {
+    public init(id: Int, title: String, completed: Bool) {
         self.id = id
         self.title = title
         self.completed = completed

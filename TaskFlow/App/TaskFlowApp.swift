@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TasksFeature
 
 @main
 struct TaskFlowApp: App {
