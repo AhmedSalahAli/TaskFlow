@@ -19,6 +19,9 @@ public final class TaskRemoteDataSource: Sendable {
 
         let url = URL(string: "https://jsonplaceholder.typicode.com/todos")!
 
-        return try await network.request(url: url)
+        let dto: [TaskDTO] = try await network.request(url: url)
+
+        return dto.map { $0.toDomain() }
     }
+
 }
