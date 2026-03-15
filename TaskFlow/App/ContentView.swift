@@ -13,14 +13,21 @@ struct ContentView: View {
 
     @Environment(\.modelContext) private var context
 
-    var body: some View {
+    private var container: AppContainer {
+        AppContainer(context: context)
+    }
 
-        let container = AppContainer(context: context)
+    var body: some View {
 
         TasksView(
             viewModel: TasksViewModel(
                 fetchTasksUseCase: container.fetchTasksUseCase
             )
         )
+        
+        TasksView(
+            viewModel: container.tasksViewModel
+        )
+
     }
 }

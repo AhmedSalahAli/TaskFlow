@@ -35,5 +35,9 @@ final class AppContainer {
     lazy var fetchTasksUseCase = FetchTasksUseCase(
         repository: taskRepository
     )
-}
 
+    // ViewModel instance
+    lazy var tasksViewModel = TasksViewModel(
+        fetchTasksUseCase: fetchTasksUseCase
+    )
+}
