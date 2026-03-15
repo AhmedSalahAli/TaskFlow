@@ -16,7 +16,7 @@ public final class TaskLocalDataSource {
         self.context = context
     }
 
-    public func saveTasks(_ tasks: [Task]) {
+    public func saveTasks(_ tasks: [TaskModel]) {
 
         for task in tasks {
 
@@ -32,7 +32,7 @@ public final class TaskLocalDataSource {
         try? context.save()
     }
 
-    public func fetchTasks() -> [Task] {
+    public func fetchTasks() -> [TaskModel] {
 
         let descriptor = FetchDescriptor<TaskEntity>()
 
@@ -41,7 +41,7 @@ public final class TaskLocalDataSource {
         }
 
         return entities.map {
-            Task(
+            TaskModel(
                 id: $0.id,
                 title: $0.title,
                 completed: $0.completed

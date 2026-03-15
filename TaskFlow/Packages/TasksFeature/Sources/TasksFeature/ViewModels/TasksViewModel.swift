@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 @MainActor
-public class TasksViewModel: ObservableObject {
+public final class TasksViewModel: ObservableObject {
 
-    @Published var tasks: [Task] = []
+    @Published public private(set) var state: TasksState = .idle
 
     private let fetchTasksUseCase: FetchTasksUseCase
 
@@ -19,14 +19,28 @@ public class TasksViewModel: ObservableObject {
         self.fetchTasksUseCase = fetchTasksUseCase
     }
 
-    func loadTasks() async {
+    public func loadTasks() {
 
-        do {
-            tasks = try await fetchTasksUseCase.execute()
-        } catch {
-            print(error)
+        state = .loading
+
+        Task {
+
+            do {
+
+                let tasks = try await fetchTasksUseCase.execute()
+
+                if tasks.isEmpty {
+                    state = .empty
+                } else {
+                    state = .loaded(tasks)
+                }
+
+            } catch {
+
+                state = .error(error.localizedDescription)
+
+            }
+
         }
-
     }
-
 }

@@ -15,7 +15,7 @@ public final class TaskRemoteDataSource: Sendable {
         self.network = network
     }
 
-    public func fetchTasks() async throws -> [Task] {
+    public func fetchTasks() async throws -> [TaskModel] {
 
         let url = URL(string: "https://jsonplaceholder.typicode.com/todos")!
 

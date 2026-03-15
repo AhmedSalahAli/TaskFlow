@@ -20,7 +20,7 @@ public final class DefaultTaskRepository: TaskRepository {
         self.local = local
     }
 
-    public func fetchTasks() async throws -> [Task] {
+    public func fetchTasks() async throws -> [TaskModel] {
 
         do {
 

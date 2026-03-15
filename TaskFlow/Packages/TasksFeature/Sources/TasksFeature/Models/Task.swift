@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  TaskModel.swift
 //  TaskFlow
 //
 //  Created by Ahmed Salah on 07/03/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Task: Identifiable, Decodable, Sendable {
+public struct TaskModel: Identifiable, Decodable, Sendable {
 
     public let id: Int
     public let title: String

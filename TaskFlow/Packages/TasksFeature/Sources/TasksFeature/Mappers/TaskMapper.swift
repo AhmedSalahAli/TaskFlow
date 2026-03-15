@@ -9,8 +9,8 @@ import Foundation
 
 extension TaskDTO {
 
-    func toDomain() -> Task {
-        Task(
+    func toDomain() -> TaskModel {
+        TaskModel(
             id: id,
             title: title,
             completed: completed

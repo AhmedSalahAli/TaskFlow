@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftData
 
-
 public struct TasksView: View {
 
     @StateObject private var viewModel: TasksViewModel
@@ -21,15 +20,51 @@ public struct TasksView: View {
 
         NavigationStack {
 
-            List(viewModel.tasks) { task in
-                Text(task.title)
-            }
-
-            .navigationTitle("TaskFlow")
+            content
+                .navigationTitle("TaskFlow")
 
         }
         .task {
-            await viewModel.loadTasks()
+            viewModel.loadTasks()
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+
+        switch viewModel.state {
+
+        case .idle:
+            EmptyView()
+
+        case .loading:
+            ProgressView()
+
+        case .loaded(let tasks):
+
+            List(tasks) { task in
+                Text(task.title)
+            }
+
+        case .empty:
+
+            VStack(spacing: 12) {
+                Image(systemName: "tray")
+                    .font(.largeTitle)
+
+                Text("No Tasks")
+            }
+
+        case .error(let message):
+
+            VStack(spacing: 12) {
+
+                Image(systemName: "exclamationmark.triangle")
+
+                Text(message)
+                    .multilineTextAlignment(.center)
+
+            }
         }
     }
 }

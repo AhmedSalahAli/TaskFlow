@@ -10,6 +10,6 @@ import Foundation
 @MainActor
 public protocol TaskRepository {
     
-    func fetchTasks() async throws -> [Task]
+    func fetchTasks() async throws -> [TaskModel]
     
 }
