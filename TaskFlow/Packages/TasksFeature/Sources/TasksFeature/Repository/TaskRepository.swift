@@ -7,7 +7,8 @@
 
 import Foundation
 
-public protocol TaskRepository: Sendable {
+@MainActor
+public protocol TaskRepository {
     
     func fetchTasks() async throws -> [Task]
     

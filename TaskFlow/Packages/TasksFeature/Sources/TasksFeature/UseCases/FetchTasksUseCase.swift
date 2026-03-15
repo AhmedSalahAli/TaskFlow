@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct FetchTasksUseCase: Sendable {
+@MainActor
+public struct FetchTasksUseCase {
 
     private let repository: TaskRepository
 

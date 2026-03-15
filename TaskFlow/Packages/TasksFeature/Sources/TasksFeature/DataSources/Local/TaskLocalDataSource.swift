@@ -8,12 +8,15 @@
 import SwiftData
 import Foundation
 
-final class TaskLocalDataSource {
+public final class TaskLocalDataSource {
 
-    func saveTasks(
-        _ tasks: [Task],
-        context: ModelContext
-    ) {
+    private let context: ModelContext
+
+    public init(context: ModelContext) {
+        self.context = context
+    }
+
+    public func saveTasks(_ tasks: [Task]) {
 
         for task in tasks {
 
@@ -29,9 +32,7 @@ final class TaskLocalDataSource {
         try? context.save()
     }
 
-    func fetchTasks(
-        context: ModelContext
-    ) -> [Task] {
+    public func fetchTasks() -> [Task] {
 
         let descriptor = FetchDescriptor<TaskEntity>()
 

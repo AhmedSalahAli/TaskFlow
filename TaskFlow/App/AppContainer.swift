@@ -17,19 +17,23 @@ final class AppContainer {
         self.context = context
     }
 
+    lazy var remoteDataSource = TaskRemoteDataSource(
+        network: APIService()
+    )
+
+    lazy var localDataSource = TaskLocalDataSource(
+        context: context
+    )
+
     lazy var taskRepository: TaskRepository = {
-
-        let remote = TaskRemoteDataSource(
-            network: APIService()
+        RemoteTaskRepository(
+            remote: remoteDataSource,
+            local: localDataSource
         )
-
-        return RemoteTaskRepository(
-            remote: remote
-        )
-
     }()
 
     lazy var fetchTasksUseCase = FetchTasksUseCase(
         repository: taskRepository
     )
 }
+
