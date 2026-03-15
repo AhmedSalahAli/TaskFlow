@@ -19,28 +19,28 @@ public final class TasksViewModel: ObservableObject {
         self.fetchTasksUseCase = fetchTasksUseCase
     }
 
-    public func loadTasks() {
+    public func loadTasks() async {
 
-        state = .loading
+        updateState(.loading)
 
-        Task {
+        do {
 
-            do {
+            let tasks = try await fetchTasksUseCase.execute()
 
-                let tasks = try await fetchTasksUseCase.execute()
-
-                if tasks.isEmpty {
-                    state = .empty
-                } else {
-                    state = .loaded(tasks)
-                }
-
-            } catch {
-
-                state = .error(error.localizedDescription)
-
+            if tasks.isEmpty {
+                updateState(.empty)
+            } else {
+                updateState(.loaded(tasks))
             }
 
+        } catch {
+
+            updateState(.error(error.localizedDescription))
+
         }
+    }
+
+    private func updateState(_ newState: TasksState) {
+        state = newState
     }
 }

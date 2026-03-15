@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TaskModel: Identifiable, Decodable, Sendable {
+public struct TaskModel: Identifiable, Decodable, Sendable, Equatable {
 
     public let id: Int
     public let title: String

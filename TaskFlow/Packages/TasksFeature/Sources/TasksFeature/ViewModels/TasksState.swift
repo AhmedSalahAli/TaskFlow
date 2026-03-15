@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum TasksState {
+public enum TasksState: Equatable {
 
     case idle
     case loading
