@@ -26,7 +26,7 @@ final class AppContainer {
     )
 
     lazy var taskRepository: TaskRepository = {
-        RemoteTaskRepository(
+        DefaultTaskRepository(
             remote: remoteDataSource,
             local: localDataSource
         )

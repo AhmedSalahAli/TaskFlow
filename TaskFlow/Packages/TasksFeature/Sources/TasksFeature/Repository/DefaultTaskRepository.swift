@@ -1,5 +1,5 @@
 //
-//  RemoteTaskRepository.swift
+//  DefaultTaskRepository.swift
 //  TaskFlow
 //
 //  Created by Ahmed Salah on 07/03/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemoteTaskRepository: TaskRepository {
+public final class DefaultTaskRepository: TaskRepository {
 
     private let remote: TaskRemoteDataSource
     private let local: TaskLocalDataSource
@@ -24,15 +24,18 @@ public final class RemoteTaskRepository: TaskRepository {
 
         do {
 
-            let tasks = try await remote.fetchTasks()
+            // 1 fetch remote
+            let remoteTasks = try await remote.fetchTasks()
 
-            local.saveTasks(tasks)
-
-            return tasks
+            // 2 save local
+            local.saveTasks(remoteTasks)
 
         } catch {
 
-            return local.fetchTasks()
+            // ignore remote failure
         }
+
+        // 3 read local
+        return local.fetchTasks()
     }
 }
