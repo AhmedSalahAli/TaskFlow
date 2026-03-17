@@ -19,23 +19,30 @@ public final class DefaultTaskRepository: TaskRepository {
         self.remote = remote
         self.local = local
     }
-
+    
     public func fetchTasks() async throws -> [TaskModel] {
 
-        do {
+        // 1️⃣ read local first
+        let localTasks = local.fetchTasks()
 
-            // 1 fetch remote
-            let remoteTasks = try await remote.fetchTasks()
+        // 2️⃣ refresh in background
+        Task {
 
-            // 2 save local
-            local.saveTasks(remoteTasks)
+            do {
 
-        } catch {
+                let remoteTasks = try await remote.fetchTasks()
 
-            // ignore remote failure
+                local.saveTasks(remoteTasks)
+
+            } catch {
+
+                // ignore refresh errors
+
+            }
+
         }
 
-        // 3 read local
-        return local.fetchTasks()
+        // 3️⃣ return cached data immediately
+        return localTasks
     }
 }

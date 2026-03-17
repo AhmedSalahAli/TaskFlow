@@ -10,6 +10,8 @@
 		7E359CAE2F61B743004ACBF6 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 7E359CAD2F61B743004ACBF6 /* Networking */; };
 		7E359CB02F61B743004ACBF6 /* TasksFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7E359CAF2F61B743004ACBF6 /* TasksFeature */; };
 		7EA4C8012F6760910009D6F9 /* TasksFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7EA4C8002F6760910009D6F9 /* TasksFeature */; };
+		7EA4C80D2F676F280009D6F9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7EA4C80C2F676F280009D6F9 /* README.md */; };
+		7EA4C80E2F676F280009D6F9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7EA4C80C2F676F280009D6F9 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		7EA4C7F72F6760220009D6F9 /* TaskFlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskFlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EA4C80C2F676F280009D6F9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7EC811012F5C7E6300477D54 /* TaskFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +87,7 @@
 		7EC810F82F5C7E6300477D54 = {
 			isa = PBXGroup;
 			children = (
+				7EA4C80C2F676F280009D6F9 /* README.md */,
 				7EC811032F5C7E6300477D54 /* TaskFlow */,
 				7EA4C7F82F6760220009D6F9 /* TaskFlowTests */,
 				7E990DDD2F5F68D500615344 /* Frameworks */,
@@ -195,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EA4C80E2F676F280009D6F9 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EA4C80D2F676F280009D6F9 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
