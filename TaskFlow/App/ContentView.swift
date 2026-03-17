@@ -18,12 +18,6 @@ struct ContentView: View {
     }
 
     var body: some View {
-
-        TasksView(
-            viewModel: TasksViewModel(
-                fetchTasksUseCase: container.fetchTasksUseCase
-            )
-        )
         
         TasksView(
             viewModel: container.tasksViewModel

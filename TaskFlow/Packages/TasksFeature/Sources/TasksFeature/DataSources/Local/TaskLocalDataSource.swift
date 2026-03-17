@@ -18,6 +18,16 @@ public final class TaskLocalDataSource {
 
     public func saveTasks(_ tasks: [TaskModel]) {
 
+        // 🧹 delete old data first (simple approach)
+        let descriptor = FetchDescriptor<TaskEntity>()
+
+        if let existing = try? context.fetch(descriptor) {
+            for item in existing {
+                context.delete(item)
+            }
+        }
+
+        // ➕ insert new data
         for task in tasks {
 
             let entity = TaskEntity(
