@@ -6,12 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
+import TasksFeature
 
 @main
 struct TaskFlowApp: App {
+
     var body: some Scene {
+
         WindowGroup {
-            TasksView()
+
+            ContentView()
+
         }
+        .modelContainer(for: TaskEntity.self)
+
     }
+
 }
