@@ -41,9 +41,18 @@ public struct TasksView: View {
             ProgressView()
             
         case .loaded(let tasks):
-            
+
             List(tasks) { task in
+
                 Text(task.title)
+                    .onAppear {
+                        Task {
+                            await viewModel.loadMoreIfNeeded(currentItem: task)
+                        }
+                    }
+            }
+            .refreshable {
+                await viewModel.refresh()
             }
             
         case .empty:

@@ -12,7 +12,7 @@ public final class DefaultTaskRepository: TaskRepository {
     private let remote: TaskRemoteDataSource
     private let local: TaskLocalDataSource
 
-    private var refreshTask: Task<Void, Never>?   // ✅ control background task
+    private var refreshTask: Task<Void, Never>?
 
     public init(
         remote: TaskRemoteDataSource,
@@ -22,45 +22,50 @@ public final class DefaultTaskRepository: TaskRepository {
         self.local = local
     }
 
-    public func fetchTasks() async throws -> [TaskModel] {
+    public func fetchTasks(page: Int, limit: Int) async throws -> [TaskModel] {
 
-        let localTasks = local.fetchTasks()
+        // 🧠 Only cache first page
+        if page == 1 {
 
-        // 🧠 Case 1: First load (no cache)
-        if localTasks.isEmpty {
+            let localTasks = local.fetchTasks()
 
-            let remoteTasks = try await remote.fetchTasks()
-            local.saveTasks(remoteTasks)
+            // 🧠 First launch → fetch remote blocking
+            if localTasks.isEmpty {
 
-            return local.fetchTasks()
+                let remoteTasks = try await remote.fetchTasks(page: 1, limit: limit)
+                local.saveTasks(remoteTasks)
+
+                return remoteTasks
+            }
+
+            // 🧠 Return cache immediately
+            refreshFirstPageInBackground(limit: limit)
+
+            return localTasks
         }
 
-        // 🧠 Case 2: Cached data exists → return immediately
-        refreshInBackground()
-
-        return localTasks
+        // 🧠 Pagination → always remote (no cache)
+        return try await remote.fetchTasks(page: page, limit: limit)
     }
 
     // MARK: - Private
 
-    private func refreshInBackground() {
+    private func refreshFirstPageInBackground(limit: Int) {
 
-        // ❗️cancel previous task to avoid duplication
         refreshTask?.cancel()
 
         refreshTask = Task {
 
             do {
 
-                let remoteTasks = try await remote.fetchTasks()
+                let remoteTasks = try await remote.fetchTasks(page: 1, limit: limit)
 
-                // ❗️check cancellation
                 guard !Task.isCancelled else { return }
 
                 local.saveTasks(remoteTasks)
 
             } catch {
-                // ignore silently (production apps log this)
+                // ignore (production: log)
             }
         }
     }

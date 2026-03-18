@@ -16,7 +16,7 @@ public struct FetchTasksUseCase {
         self.repository = repository
     }
 
-    public func execute() async throws -> [TaskModel] {
-        try await repository.fetchTasks()
+    public func execute(page: Int, limit: Int) async throws -> [TaskModel] {
+        try await repository.fetchTasks(page: page, limit: limit)
     }
 }
