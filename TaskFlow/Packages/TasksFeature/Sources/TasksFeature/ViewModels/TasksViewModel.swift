@@ -39,7 +39,11 @@ public final class TasksViewModel: ObservableObject {
             
             tasks = newTasks
             
-            updateState(.loaded(tasks))
+            if tasks.isEmpty {
+                updateState(.empty)
+            } else {
+                updateState(.loaded(tasks))
+            }
             
         } catch {
             

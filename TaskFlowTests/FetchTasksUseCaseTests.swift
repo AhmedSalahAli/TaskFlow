@@ -21,7 +21,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
 
         let useCase = FetchTasksUseCase(repository: mockRepository)
 
-        let tasks = try await useCase.execute()
+        let tasks = try await useCase.execute(page: 1, limit: 10)
 
         XCTAssertEqual(tasks.count, 1)
         XCTAssertEqual(tasks.first?.title, "Test Task")

@@ -13,7 +13,7 @@ final class MockTaskRepository: TaskRepository {
     var tasks: [TaskModel] = []
     var shouldThrowError = false
 
-    func fetchTasks() async throws -> [TaskModel] {
+    func fetchTasks(page: Int, limit: Int) async throws -> [TaskModel] {
 
         if shouldThrowError {
             throw NSError(domain: "TestError", code: 1)
