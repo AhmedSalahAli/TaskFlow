@@ -2,8 +2,7 @@ name: iOS CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 jobs:
@@ -14,21 +13,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode.app
+      - name: Select Xcode 16.4
+        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
+
+      - name: Resolve Swift Packages
+        run: xcodebuild -resolvePackageDependencies -project TaskFlow.xcodeproj
 
       - name: Build
         run: |
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-          clean build
+          -destination 'generic/platform=iOS Simulator' \
+          -sdk iphonesimulator \
+          -configuration Debug \
+          clean build \
+          CODE_SIGNING_ALLOWED=NO
 
       - name: Run Tests
         run: |
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-          test
+          -destination 'generic/platform=iOS Simulator' \
+          -sdk iphonesimulator \
+          -configuration Debug \
+          test \
+          CODE_SIGNING_ALLOWED=NO
