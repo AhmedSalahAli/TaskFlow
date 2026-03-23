@@ -77,5 +77,3 @@ public struct TasksView: View {
         }
     }
 }
-
-//test git ci
