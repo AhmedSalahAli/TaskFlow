@@ -25,7 +25,7 @@ jobs:
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'platform=iOS Simulator,OS=latest' \
+          -destination 'generic/platform=iOS Simulator' \
           clean build
 
       - name: Run Tests
@@ -33,5 +33,5 @@ jobs:
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'platform=iOS Simulator,OS=latest' \
+          -destination 'generic/platform=iOS Simulator' \
           test
