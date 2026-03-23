@@ -14,18 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select Xcode 16.4
-        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
-
-      - name: Resolve Swift Packages
-        run: xcodebuild -resolvePackageDependencies
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode.app
 
       - name: Build
         run: |
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'generic/platform=iOS Simulator' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
           clean build
 
       - name: Run Tests
@@ -33,5 +30,5 @@ jobs:
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'generic/platform=iOS Simulator' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
           test
