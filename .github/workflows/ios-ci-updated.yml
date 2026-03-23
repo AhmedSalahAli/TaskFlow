@@ -25,7 +25,7 @@ jobs:
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.5' \
           clean build
 
       - name: Run Tests
@@ -33,5 +33,5 @@ jobs:
           xcodebuild \
           -scheme TaskFlow \
           -project TaskFlow.xcodeproj \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.5' \
           test
