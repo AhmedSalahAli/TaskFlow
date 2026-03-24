@@ -17,9 +17,14 @@ let package = Package(
         )
     ],
 
+    dependencies: [
+        .package(path: "../Networking") // ✅ مهم جداً
+    ],
+
     targets: [
         .target(
-            name: "TasksFeature"
+            name: "TasksFeature",
+            dependencies: ["Networking"] // ✅ مهم جداً
         )
     ]
 )
