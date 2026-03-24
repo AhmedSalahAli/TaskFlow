@@ -18,13 +18,13 @@ let package = Package(
     ],
 
     dependencies: [
-        .package(path: "../TasksFeature")
+
     ],
 
     targets: [
         .target(
             name: "Networking",
-            dependencies: ["TasksFeature"]
+            dependencies: []
         )
     ]
 )
