@@ -9,6 +9,7 @@ import TasksFeature
 import Networking
 import SwiftData
 
+@MainActor
 final class AppContainer {
 
     private let context: ModelContext
