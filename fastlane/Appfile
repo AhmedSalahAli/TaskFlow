@@ -1,0 +1,6 @@
+app_identifier("com.ahmed.taskflow") # The bundle identifier of your app
+apple_id("ahmedsalahali2@gmail.com") # Your Apple Developer Portal username
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
