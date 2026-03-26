@@ -19,11 +19,11 @@ jobs:
       # -----------------------
       # Ruby + Bundler
       # -----------------------
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: false
+#      - name: Setup Ruby
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: '3.3'
+#          bundler-cache: false
       - name: Install Gems
         run: bundle install
 
