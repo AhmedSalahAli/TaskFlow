@@ -24,6 +24,8 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
+      - name: Install Gems
+        run: bundle install
 
       # -----------------------
       # Resolve Packages
@@ -65,5 +67,14 @@ jobs:
       - name: Deploy to TestFlight
         if: github.ref == 'refs/heads/develop'
         run: bundle exec fastlane beta
+        env:
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+
+      # -----------------------
+      # Deploy → Production
+      # -----------------------
+      - name: Deploy to App Store
+        if: github.ref == 'refs/heads/main'
+        run: bundle exec fastlane release
         env:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
