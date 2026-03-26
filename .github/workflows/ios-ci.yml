@@ -2,9 +2,7 @@ name: iOS CI/CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [ main, develop ]
   pull_request:
 
 jobs:
@@ -18,11 +16,23 @@ jobs:
       - name: Select Xcode 16.4
         run: sudo xcode-select -switch /Applications/Xcode_16.4.app
 
+      # -----------------------
+      # Ruby + Bundler
+      # -----------------------
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      # -----------------------
+      # Resolve Packages
+      # -----------------------
       - name: Resolve Swift Packages
         run: xcodebuild -resolvePackageDependencies -project TaskFlow.xcodeproj
 
       # -----------------------
-      # BUILD + TEST (CI)
+      # Build
       # -----------------------
       - name: Build
         run: |
@@ -35,6 +45,9 @@ jobs:
           clean build \
           CODE_SIGNING_ALLOWED=NO
 
+      # -----------------------
+      # Test
+      # -----------------------
       - name: Run Tests
         run: |
           xcodebuild \
@@ -47,28 +60,10 @@ jobs:
           CODE_SIGNING_ALLOWED=NO
 
       # -----------------------
-      # FASTLANE (CD)
-      # -----------------------
-      - name: Install Fastlane
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
-        run: brew install fastlane
-
-      - name: Set App Store Password
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
-        run: echo "FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=${{ secrets.APP_STORE_PASSWORD }}" >> $GITHUB_ENV
-
-      # -----------------------
-      # TESTFLIGHT (develop)
+      # Deploy → TestFlight
       # -----------------------
       - name: Deploy to TestFlight
         if: github.ref == 'refs/heads/develop'
         run: bundle exec fastlane beta
         env:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-
-      # -----------------------
-      # PRODUCTION (main)
-      # -----------------------
-#      - name: Deploy to App Store
-#        if: github.ref == 'refs/heads/main'
-#        run: fastlane release
