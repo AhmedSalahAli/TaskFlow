@@ -62,11 +62,13 @@ jobs:
       # -----------------------
       - name: Deploy to TestFlight
         if: github.ref == 'refs/heads/develop'
-        run: fastlane beta
+        run: bundle exec fastlane beta
+        env:
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
 
       # -----------------------
       # PRODUCTION (main)
       # -----------------------
-      - name: Deploy to App Store
-        if: github.ref == 'refs/heads/main'
-        run: fastlane release
+#      - name: Deploy to App Store
+#        if: github.ref == 'refs/heads/main'
+#        run: fastlane release
