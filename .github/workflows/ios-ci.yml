@@ -1,12 +1,14 @@
-name: iOS CI
+name: iOS CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - develop
   pull_request:
 
 jobs:
-  build-and-test:
+  build-test-deploy:
     runs-on: macos-latest
 
     steps:
@@ -19,6 +21,9 @@ jobs:
       - name: Resolve Swift Packages
         run: xcodebuild -resolvePackageDependencies -project TaskFlow.xcodeproj
 
+      # -----------------------
+      # BUILD + TEST (CI)
+      # -----------------------
       - name: Build
         run: |
           xcodebuild \
@@ -40,3 +45,28 @@ jobs:
           -configuration Debug \
           test \
           CODE_SIGNING_ALLOWED=NO
+
+      # -----------------------
+      # FASTLANE (CD)
+      # -----------------------
+      - name: Install Fastlane
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+        run: brew install fastlane
+
+      - name: Set App Store Password
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+        run: echo "FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=${{ secrets.APP_STORE_PASSWORD }}" >> $GITHUB_ENV
+
+      # -----------------------
+      # TESTFLIGHT (develop)
+      # -----------------------
+      - name: Deploy to TestFlight
+        if: github.ref == 'refs/heads/develop'
+        run: fastlane beta
+
+      # -----------------------
+      # PRODUCTION (main)
+      # -----------------------
+      - name: Deploy to App Store
+        if: github.ref == 'refs/heads/main'
+        run: fastlane release
