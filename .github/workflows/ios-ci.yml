@@ -17,13 +17,17 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_16.4.app
 
       # -----------------------
-      # Ruby + Bundler
+      # Ruby (IMPORTANT)
       # -----------------------
-#      - name: Setup Ruby
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          ruby-version: '3.3'
-#          bundler-cache: false
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: false   # 🔥 مهم عشان المشكلة اللي عندك
+
+      # -----------------------
+      # Install Gems
+      # -----------------------
       - name: Install Gems
         run: bundle install
 
