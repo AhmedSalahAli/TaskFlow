@@ -17,13 +17,13 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_16.4.app
 
       # -----------------------
-      # Ruby (IMPORTANT)
+      # Ruby
       # -----------------------
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
-          bundler-cache: false   # 🔥 مهم عشان المشكلة اللي عندك
+          bundler-cache: false
 
       # -----------------------
       # Install Gems
@@ -32,7 +32,7 @@ jobs:
         run: bundle install
 
       # -----------------------
-      # Resolve Packages
+      # Resolve Swift Packages
       # -----------------------
       - name: Resolve Swift Packages
         run: xcodebuild -resolvePackageDependencies -project TaskFlow.xcodeproj
@@ -72,8 +72,9 @@ jobs:
         if: github.ref == 'refs/heads/develop'
         run: bundle exec fastlane beta
         env:
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-          FASTLANE_USER: ahmedsalahali2@gmail.com
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
       # -----------------------
       # Deploy → Production
@@ -82,5 +83,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: bundle exec fastlane release
         env:
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-          FASTLANE_USER: ahmedsalahali2@gmail.com
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
