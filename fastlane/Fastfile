@@ -32,7 +32,7 @@ platform :ios do
 
     build_app(
       scheme: "TaskFlow",
-      export_method: "app-store"
+      export_method: "app-store",
       xcargs: "-allowProvisioningUpdates"
     )
 
@@ -62,7 +62,7 @@ platform :ios do
 
     build_app(
       scheme: "TaskFlow",
-      export_method: "app-store"
+      export_method: "app-store",
       xcargs: "-allowProvisioningUpdates"
     )
 
