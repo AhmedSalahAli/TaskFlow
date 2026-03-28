@@ -73,6 +73,7 @@ jobs:
         run: bundle exec fastlane beta
         env:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          FASTLANE_USER: ahmedsalahali2@gmail.com
 
       # -----------------------
       # Deploy → Production
@@ -82,3 +83,4 @@ jobs:
         run: bundle exec fastlane release
         env:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          FASTLANE_USER: ahmedsalahali2@gmail.com
