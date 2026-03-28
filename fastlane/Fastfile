@@ -3,39 +3,38 @@ default_platform(:ios)
 platform :ios do
 
   # -----------------------
-  # API KEY (Reusable)
-  # -----------------------
-  def api_key
-    @api_key ||= app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
-      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_content: ENV["APP_STORE_CONNECT_API_KEY"],
-      is_key_content_base64: false
-    )
-  end
-
-  # -----------------------
   # BETA → TestFlight
   # -----------------------
   desc "Upload to TestFlight (Beta)"
   lane :beta do
 
+    # 🔐 API KEY (for TestFlight + build number)
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["APP_STORE_CONNECT_API_KEY"]
+    )
+
+    # 📈 Get latest build number
     latest_build = latest_testflight_build_number(
       api_key: api_key,
       app_identifier: "com.ahmed.taskflow"
     ) || 0
 
+    # 🔢 Increment build number
     increment_build_number(
       build_number: latest_build + 1,
       xcodeproj: "TaskFlow.xcodeproj"
     )
 
+    # 🛠 Build with automatic signing (Option A)
     build_app(
       scheme: "TaskFlow",
       export_method: "app-store",
       xcargs: "-allowProvisioningUpdates"
     )
 
+    # 🚀 Upload to TestFlight
     upload_to_testflight(
       api_key: api_key,
       skip_waiting_for_build_processing: true
@@ -49,6 +48,12 @@ platform :ios do
   # -----------------------
   desc "Upload new build to App Store"
   lane :release do
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["APP_STORE_CONNECT_API_KEY"]
+    )
 
     latest_build = latest_testflight_build_number(
       api_key: api_key,
@@ -78,6 +83,12 @@ platform :ios do
   # -----------------------
   desc "Promote TestFlight build to production"
   lane :promote do
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["APP_STORE_CONNECT_API_KEY"]
+    )
 
     upload_to_app_store(
       api_key: api_key,
