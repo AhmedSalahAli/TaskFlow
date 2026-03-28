@@ -33,6 +33,7 @@ platform :ios do
     build_app(
       scheme: "TaskFlow",
       export_method: "app-store"
+      xcargs: "-allowProvisioningUpdates"
     )
 
     upload_to_testflight(
@@ -62,6 +63,7 @@ platform :ios do
     build_app(
       scheme: "TaskFlow",
       export_method: "app-store"
+      xcargs: "-allowProvisioningUpdates"
     )
 
     upload_to_app_store(
