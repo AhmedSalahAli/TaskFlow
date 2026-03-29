@@ -32,7 +32,15 @@ jobs:
         run: bundle install
 
       # -----------------------
-      # Resolve Swift Packages
+      # Install Certificates (MATCH)
+      # -----------------------
+      - name: Install Certificates
+        run: bundle exec fastlane match appstore --readonly
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      # -----------------------
+      # Resolve Packages
       # -----------------------
       - name: Resolve Swift Packages
         run: xcodebuild -resolvePackageDependencies -project TaskFlow.xcodeproj
@@ -66,29 +74,21 @@ jobs:
           CODE_SIGNING_ALLOWED=NO
 
       # -----------------------
-      # Deploy → TestFlight
+      # Deploy → TestFlight (develop)
       # -----------------------
       - name: Deploy to TestFlight
         if: github.ref == 'refs/heads/develop'
         run: bundle exec fastlane beta
         env:
-          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_USER: ahmedsalahali2@gmail.com
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-          FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
 
       # -----------------------
-      # Deploy → Production
+      # Deploy → App Store (main)
       # -----------------------
       - name: Deploy to App Store
         if: github.ref == 'refs/heads/main'
         run: bundle exec fastlane release
         env:
-          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_USER: ahmedsalahali2@gmail.com
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-          FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
