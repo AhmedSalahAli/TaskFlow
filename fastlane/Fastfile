@@ -15,7 +15,7 @@ platform :ios do
       key_content: ENV["APP_STORE_CONNECT_API_KEY"]
     )
 
-    # ✅ IMPORTANT: install certificates
+    # ✅ Install certificates (MATCH)
     match(
       type: "appstore",
       readonly: true,
@@ -34,13 +34,18 @@ platform :ios do
       xcodeproj: "TaskFlow.xcodeproj"
     )
 
-    # 🛠 Build (with match profiles)
+    # 🛠 Build (FIXED SIGNING 🚀)
     build_app(
       scheme: "TaskFlow",
-      export_method: "app-store"
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates",
+      export_options: {
+        signingStyle: "automatic"
+      },
+      export_team_id: "5UUHYQ3YBF"
     )
 
-    # 🚀 Upload
+    # 🚀 Upload to TestFlight
     upload_to_testflight(
       api_key: api_key,
       skip_waiting_for_build_processing: true
@@ -50,7 +55,7 @@ platform :ios do
 
 
   # -----------------------
-  # PRODUCTION
+  # PRODUCTION → App Store
   # -----------------------
   desc "Upload new build to App Store"
   lane :release do
@@ -61,7 +66,7 @@ platform :ios do
       key_content: ENV["APP_STORE_CONNECT_API_KEY"]
     )
 
-    # ✅ IMPORTANT
+    # ✅ Install certificates
     match(
       type: "appstore",
       readonly: true,
@@ -78,9 +83,15 @@ platform :ios do
       xcodeproj: "TaskFlow.xcodeproj"
     )
 
+    # 🛠 Build (FIXED SIGNING 🚀)
     build_app(
       scheme: "TaskFlow",
-      export_method: "app-store"
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates",
+      export_options: {
+        signingStyle: "automatic"
+      },
+      export_team_id: "5UUHYQ3YBF"
     )
 
     upload_to_app_store(
