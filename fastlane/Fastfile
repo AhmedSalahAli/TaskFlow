@@ -18,7 +18,8 @@ platform :ios do
     # ✅ IMPORTANT: install certificates
     match(
       type: "appstore",
-      readonly: true
+      readonly: true,
+      api_key: api_key
     )
 
     # 📈 Get latest build number
@@ -63,7 +64,8 @@ platform :ios do
     # ✅ IMPORTANT
     match(
       type: "appstore",
-      readonly: true
+      readonly: true,
+      api_key: api_key
     )
 
     latest_build = latest_testflight_build_number(

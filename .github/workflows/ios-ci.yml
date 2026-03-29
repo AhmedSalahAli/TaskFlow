@@ -42,10 +42,10 @@ jobs:
       # -----------------------
       # Install Certificates (MATCH)
       # -----------------------
-      - name: Install Certificates
-        run: bundle exec fastlane match appstore --readonly
-        env:
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+#      - name: Install Certificates
+#        run: bundle exec fastlane match appstore --readonly
+#        env:
+#          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
       # -----------------------
       # Resolve Packages
