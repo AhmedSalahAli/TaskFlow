@@ -1,4 +1,4 @@
-git_url("git_url("https://github.com/AhmedSalahAli/taskflow-certificates.git")")
+git_url("https://github.com/AhmedSalahAli/taskflow-certificates.git")
 
 storage_mode("git")
 
@@ -6,6 +6,5 @@ type("appstore")
 
 clone_branch_directly(true)
 
-# اختياري (لكن أنصح بيه)
 app_identifier(["com.ahmed.taskflow"])
 username("ahmedsalahali2@gmail.com")
